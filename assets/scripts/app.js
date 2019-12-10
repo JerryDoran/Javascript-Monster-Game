@@ -28,46 +28,92 @@ adjustHealthBars(chosenMaxLife);
 
 function writeToLog(event, value, monsterHealth, playerHealth) {
   let logEntry;
-  if (event == LOG_EVENT_PLAYER_ATTACK) {
-    logEntry = {
-      event: event,
-      value: value,
-      target: 'MONSTER',
-      finalMonsterHealth: monsterHealth,
-      finalPLayerHealth: playerHealth
-    };
-  } else if (event === LOG_EVENT_PLAYER_STRONG_ATTACK) {
-    logEntry = {
-      event: event,
-      value: value,
-      target: 'MONSTER',
-      finalMonsterHealth: monsterHealth,
-      finalPLayerHealth: playerHealth
-    };
-  } else if (event === LOG_EVENT_MONSTER_ATTACK) {
-    logEntry = {
-      event: event,
-      value: value,
-      target: 'PLAYER',
-      finalMonsterHealth: monsterHealth,
-      finalPLayerHealth: playerHealth
-    };
-  } else if (event === LOG_EVENT_PLAYER_HEAL) {
-    logEntry = {
-      event: event,
-      value: value,
-      target: 'PLAYER',
-      finalMonsterHealth: monsterHealth,
-      finalPLayerHealth: playerHealth
-    };
-  } else {
-    logEntry = {
-      event: event,
-      value: value,
-      finalMonsterHealth: monsterHealth,
-      finalPLayerHealth: playerHealth
-    };
+
+  switch (event) {
+    case LOG_EVENT_PLAYER_ATTACK:
+      logEntry = {
+        event: event,
+        value: value,
+        target: 'MONSTER',
+        finalMonsterHealth: monsterHealth,
+        finalPLayerHealth: playerHealth
+      };
+      break;
+    case LOG_EVENT_PLAYER_STRONG_ATTACK:
+      logEntry = {
+        event: event,
+        value: value,
+        target: 'MONSTER',
+        finalMonsterHealth: monsterHealth,
+        finalPLayerHealth: playerHealth
+      };
+      break;
+    case LOG_EVENT_MONSTER_ATTACK:
+      logEntry = {
+        event: event,
+        value: value,
+        target: 'PLAYER',
+        finalMonsterHealth: monsterHealth,
+        finalPLayerHealth: playerHealth
+      };
+      break;
+    case LOG_EVENT_PLAYER_HEAL:
+      logEntry = {
+        event: event,
+        value: value,
+        target: 'PLAYER',
+        finalMonsterHealth: monsterHealth,
+        finalPLayerHealth: playerHealth
+      };
+      break;
+    default:
+      logEntry = {
+        event: event,
+        value: value,
+        finalMonsterHealth: monsterHealth,
+        finalPLayerHealth: playerHealth
+      };
   }
+  // if (event == LOG_EVENT_PLAYER_ATTACK) {
+  //   logEntry = {
+  //     event: event,
+  //     value: value,
+  //     target: 'MONSTER',
+  //     finalMonsterHealth: monsterHealth,
+  //     finalPLayerHealth: playerHealth
+  //   };
+  // } else if (event === LOG_EVENT_PLAYER_STRONG_ATTACK) {
+  //   logEntry = {
+  //     event: event,
+  //     value: value,
+  //     target: 'MONSTER',
+  //     finalMonsterHealth: monsterHealth,
+  //     finalPLayerHealth: playerHealth
+  //   };
+  // } else if (event === LOG_EVENT_MONSTER_ATTACK) {
+  //   logEntry = {
+  //     event: event,
+  //     value: value,
+  //     target: 'PLAYER',
+  //     finalMonsterHealth: monsterHealth,
+  //     finalPLayerHealth: playerHealth
+  //   };
+  // } else if (event === LOG_EVENT_PLAYER_HEAL) {
+  //   logEntry = {
+  //     event: event,
+  //     value: value,
+  //     target: 'PLAYER',
+  //     finalMonsterHealth: monsterHealth,
+  //     finalPLayerHealth: playerHealth
+  //   };
+  // } else {
+  //   logEntry = {
+  //     event: event,
+  //     value: value,
+  //     finalMonsterHealth: monsterHealth,
+  //     finalPLayerHealth: playerHealth
+  //   };
+  // }
   battleLog.push(logEntry);
 }
 
@@ -173,7 +219,21 @@ function healPlayerHandler() {
 }
 
 function printLogHandler() {
-  console.log(battleLog);
+  // for (let i = 0; i < battleLog.length; i++) {
+  //   console.log(battleLog[i]);
+  // }
+
+  let i = 0;
+  for (const logEntry of battleLog) {
+    console.log(`#${i}`);
+    for (const key in logEntry) {
+      // console.log(key);
+
+      // Will get the value of the key property in the object
+      console.log(`${key}=> ${logEntry[key]}`);
+    }
+    i++;
+  }
 }
 
 attackBtn.addEventListener('click', attackHandler);
